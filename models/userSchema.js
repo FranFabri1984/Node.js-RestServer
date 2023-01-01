@@ -42,7 +42,8 @@ const userSchema = Schema ({
 });
 
 userSchema.methods.toJSON = function() {
-    const {__v, pass, ...hideUser} = this.toObject();
+    const {__v, pass, _id, ...hideUser} = this.toObject();
+    hideUser.uid = _id;
     return hideUser;
 }
 
