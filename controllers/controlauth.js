@@ -30,7 +30,6 @@ const login = async (req, res = response) => {
        }
 
        const token = await createJWT(user.id);
-
         res.json({
             msg: 'Login success',
             user,
@@ -73,7 +72,6 @@ const googleSignIn = async (req, res = response) => {
         }
 
         const token = await createJWT(user.id);
-        
         res.json({
             msg: 'Sign in success',
             user,

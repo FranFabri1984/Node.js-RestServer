@@ -36,10 +36,20 @@ const existProductById = async (id = '') => {
     } 
 }
 
+const setAllowed = (set = '', sets = []) => {
+    const include = sets.includes(set);
+    if (!include) {
+        throw new Error(`${set} not allowed - ${sets}`);
+    }
+
+    return true;
+}
+
 module.exports = {
     isValid,
     existEmail,
     existUserId,
     existCategoryById,
-    existProductById
+    existProductById,
+    setAllowed
 }

@@ -1,5 +1,6 @@
 const express = require('express');
 var cors = require('cors');
+const fileUpload = require('express-fileupload');
 const { dbConnection } = require('../database/config');
 
 class Server {
@@ -13,6 +14,7 @@ class Server {
             pro: '/api/product',
             sear: '/api/search',
             user: '/api/user',
+            up: '/api/uploads',
         }
         this.connectDB();
         this.middleWares();
@@ -25,10 +27,15 @@ class Server {
 
     middleWares() {
         this.app.use(cors());
-        /* Read and Parse */
         this.app.use(express.json());
         /* Public Dir. */
         this.app.use(express.static('public'))
+
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
     }
 
     Routes() {
@@ -37,6 +44,7 @@ class Server {
         this.app.use(this.paths.pro , require('../routes/product'));
         this.app.use(this.paths.sear , require('../routes/search'));
         this.app.use(this.paths.user , require('../routes/user'));
+        this.app.use(this.paths.up , require('../routes/uploads'));
     }
 
     Listen() {

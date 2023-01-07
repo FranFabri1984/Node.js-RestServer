@@ -11,7 +11,7 @@ const  categorySchema = Schema ({
     {
         type: Boolean,
         default: true,
-       //required: true
+        required: true
     },
     user: 
     {
